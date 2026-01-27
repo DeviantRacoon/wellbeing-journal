@@ -1,5 +1,4 @@
-import { Button } from "@/commons/components/ui/button";
-import { Input } from "@/commons/components/ui/input";
+import { Button, Input } from "@/commons/components";
 import { ArrowLeft, KeyRound, Mail } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
