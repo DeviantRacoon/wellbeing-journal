@@ -1,5 +1,6 @@
-import { Button, Input } from "@/commons/components";
 import { Seo } from "@/commons/components/seo";
+import { Button } from "@/commons/components/ui/button";
+import { Input } from "@/commons/components/ui/input";
 import { Brain, Calendar, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
