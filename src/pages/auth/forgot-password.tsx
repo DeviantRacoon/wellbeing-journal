@@ -1,7 +1,7 @@
 import { Button, Input } from "@/commons/components";
 import { ArrowLeft, KeyRound, Mail } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+
 import { useState } from "react";
 
 export default function ForgotPassword() {
@@ -10,8 +10,6 @@ export default function ForgotPassword() {
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [errorMessage, setErrorMessage] = useState("");
-
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,12 +75,8 @@ export default function ForgotPassword() {
                 en unos minutos.
               </p>
             </div>
-            <Button
-              variant="outline"
-              onClick={() => router.push("/auth")}
-              className="w-full"
-            >
-              Volver al inicio de sesión
+            <Button variant="outline" asChild className="w-full">
+              <Link href="/auth">Volver al inicio de sesión</Link>
             </Button>
           </div>
         ) : (
