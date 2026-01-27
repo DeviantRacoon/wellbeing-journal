@@ -139,7 +139,7 @@ export default function Auth() {
               </label>
 
               <Link
-                href="/auth/forgot-password"
+                href="/auth/recovery"
                 className="text-teal-400 hover:text-teal-300 transition-colors hover:underline font-medium"
               >
                 ¿Olvidaste tu contraseña?
