@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "General Sans", sans-serif;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+
+  --color-error: hsl(var(--error));
+  --color-error-foreground: hsl(var(--error-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+
+    to {
+      height: var(--radix-collapsible-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-collapsible-content-height);
+    }
+
+    to {
+      height: 0;
+    }
+  }
+}
+
+/* Default to Dark Mode Palette */
+:root {
+  /* Deep Charcoal #121212 */
+  --background: 0 0% 7%;
+  /* Off White #F0F0F0 */
+  --foreground: 0 0% 94%;
+
+  /* Darker Charcoal for cards */
+  --card: 0 0% 9%;
+  --card-foreground: 0 0% 94%;
+
+  --popover: 0 0% 9%;
+  --popover-foreground: 0 0% 94%;
+
+  /* Electric Lavender #B48EAD */
+  --primary: 290 25% 63%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 240 4% 16%;
+  --secondary-foreground: 0 0% 98%;
+
+  --muted: 240 4% 16%;
+  --muted-foreground: 240 5% 65%;
+
+  --accent: 240 4% 16%;
+  --accent-foreground: 0 0% 98%;
+
+  /* Coral Red #FF7F50 */
+  --destructive: 16 100% 66%;
+  --destructive-foreground: 0 0% 100%;
+
+  --error: 16 100% 66%;
+  --error-foreground: 0 0% 100%;
+
+  /* Mint Green #98FB98 */
+  --success: 120 93% 79%;
+  --success-foreground: 0 0% 9%;
+
+  --border: 240 4% 16%;
+  --input: 240 4% 16%;
+  --ring: 290 25% 63%;
+
+  --radius: 0.5rem;
+
+  --chart-1: 220 70% 50%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground overscroll-none;
+  }
+}
+
+@layer base {
+  /* --- 1. FIREFOX --- */
+  * {
+    scrollbar-width: thin; /* Scroll delgado */
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent; /* Thumb / Track */
+  }
+
+  /* --- 2. CHROME, EDGE, SAFARI --- */
+
+  /* El ancho de la barra */
+  *::-webkit-scrollbar {
+    width: 6px; /* Vertical */
+    height: 6px; /* Horizontal */
+  }
+
+  /* El fondo de la barra (El riel) */
+  *::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 4px; /* Un poco de margen en los extremos */
+  }
+
+  /* El indicador que se mueve (Thumb) */
+  *::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.1); /* Blanco muy sutil */
+    border-radius: 20px; /* Completamente redondo (Pill shape) */
+
+    /* Esto crea un efecto de "padding" para que la barra no toque los bordes */
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  /* Al pasar el mouse por encima de la barra */
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Un poco más visible */
+  }
+
+  /* Estado activo (Clickeando) */
+  *::-webkit-scrollbar-thumb:active {
+    background-color: rgba(99, 102, 241, 0.4); /* Indigo sutil al arrastrar */
+  }
+
+  /* Esquina donde se juntan scroll vertical y horizontal */
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}

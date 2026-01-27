@@ -1,0 +1,10 @@
+services:
+  db:
+    image: postgres:15 # Usando la versión estable 15
+    container_name: postgres_container
+    ports:
+      - "5432:5432" # PostgreSQL usa el puerto 5432
+    environment:
+      POSTGRES_USER: root # Usuario (opcional, por defecto es postgres)
+      POSTGRES_PASSWORD: root # Contraseña obligatoria
+      POSTGRES_DB: mydb # Nombre de la base de datos inicial
