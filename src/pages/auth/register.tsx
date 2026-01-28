@@ -1,3 +1,5 @@
+"use client";
+
 import { Seo } from "@/commons/components/seo";
 import { Button } from "@/commons/components/ui/button";
 import { Input } from "@/commons/components/ui/input";
