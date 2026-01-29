@@ -12,7 +12,7 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const email = "jesushellerque@gmail.com";
+  const email = "testing@gmail.com";
 
   console.log(`Start seeding for user ${email}...`);
 

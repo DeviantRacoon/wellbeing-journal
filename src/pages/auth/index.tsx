@@ -60,16 +60,18 @@ export default function Auth() {
       />
       {/* Background Orbs */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[20%] -left-[10%] h-[500px] w-[500px] rounded-full bg-teal-500/20 blur-[120px]" />
-        <div className="absolute top-[40%] -right-[10%] h-[400px] w-[400px] rounded-full bg-emerald-500/10 blur-[100px]" />
+        <div className="absolute -top-[20%] -left-[10%] h-[500px] w-[500px] rounded-full bg-indigo-500/20 blur-[120px]" />
+        <div className="absolute top-[40%] -right-[10%] h-[400px] w-[400px] rounded-full bg-purple-500/10 blur-[100px]" />
       </div>
 
       <div className="relative z-10 flex min-h-full w-full items-center justify-center px-4 py-8">
-        <article className="w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
-          <div className="flex flex-col items-center text-center mb-10">
+        <article className="w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-900/20 to-purple-900/20 p-8 shadow-2xl backdrop-blur-xl group">
+          <div className="absolute inset-0 bg-indigo-500/10 blur-3xl group-hover:bg-indigo-500/20 transition-all duration-700 pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col items-center text-center mb-10">
             <div className="relative mb-6 group">
-              <div className="absolute inset-0 bg-teal-500 blur-[20px] opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full" />
-              <div className="relative bg-gradient-to-br from-teal-500 to-emerald-600 p-4 rounded-2xl shadow-inner border border-white/10">
+              <div className="absolute inset-0 bg-indigo-500 blur-[20px] opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full" />
+              <div className="relative bg-gradient-to-br from-indigo-500 to-purple-600 p-4 rounded-2xl shadow-inner border border-white/10">
                 <Brain
                   className="w-8 h-8 text-white fill-white/20"
                   strokeWidth={1.5}
@@ -78,14 +80,14 @@ export default function Auth() {
             </div>
 
             <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-3">
-              PaM<span className="text-teal-400">App</span>
+              PaM<span className="text-indigo-400">App</span>
             </h1>
             <p className="text-base text-slate-400">
               Tu diario personal y asistente de bienestar emocional
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
             <div className="space-y-4">
               <Input
                 label="Email"
@@ -97,6 +99,7 @@ export default function Auth() {
                   if (status === "error") setStatus("idle");
                 }}
                 disabled={status === "loading"}
+                className="bg-slate-950/30 border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/50"
                 error={status === "error" && !email ? " " : undefined}
               />
 
@@ -110,6 +113,7 @@ export default function Auth() {
                   if (status === "error") setStatus("idle");
                 }}
                 disabled={status === "loading"}
+                className="bg-slate-950/30 border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/50"
                 error={status === "error" && !password ? " " : undefined}
               />
             </div>
@@ -119,7 +123,7 @@ export default function Auth() {
                 <div className="relative flex items-center">
                   <input
                     type="checkbox"
-                    className="peer h-4 w-4 appearance-none rounded border border-white/20 bg-white/5 checked:border-teal-500 checked:bg-teal-500 transition-all cursor-pointer"
+                    className="peer h-4 w-4 appearance-none rounded border border-white/20 bg-white/5 checked:border-indigo-500 checked:bg-indigo-500 transition-all cursor-pointer"
                   />
                   <svg
                     className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none"
@@ -140,7 +144,7 @@ export default function Auth() {
 
               <Link
                 href="/auth/recovery"
-                className="text-teal-400 hover:text-teal-300 transition-colors hover:underline font-medium"
+                className="text-indigo-400 hover:text-indigo-300 transition-colors hover:underline font-medium"
               >
                 ¿Olvidaste tu contraseña?
               </Link>
@@ -166,19 +170,19 @@ export default function Auth() {
                 variant="primary"
                 type="submit"
                 loading={status}
-                className="w-full bg-teal-600 hover:bg-teal-700 active:bg-teal-800"
+                className="w-full h-12 rounded-xl font-medium transition-all shadow-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/20"
               >
                 Iniciar Sesión
               </Button>
             </div>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-white/5 text-center">
+          <div className="relative z-10 mt-8 pt-6 border-t border-white/5 text-center">
             <p className="text-sm text-slate-400">
               ¿No tienes una cuenta?{" "}
               <Link
                 href="/auth/register"
-                className="text-teal-400 hover:text-teal-300 font-medium transition-colors hover:underline"
+                className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors hover:underline"
               >
                 Regístrate aquí
               </Link>

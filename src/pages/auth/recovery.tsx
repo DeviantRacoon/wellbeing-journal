@@ -38,14 +38,16 @@ export default function ForgotPassword() {
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-slate-950 px-4">
       {/* Background Orbs */}
-      <div className="absolute -top-[20%] -left-[10%] h-125 w-125 rounded-full bg-indigo-500/20 blur-[120px] pointer-events-none" />
-      <div className="absolute top-[40%] -right-[10%] h-100 w-100 rounded-full bg-blue-500/10 blur-[100px] pointer-events-none" />
+      <div className="absolute -top-[20%] -left-[10%] h-[500px] w-[500px] rounded-full bg-indigo-500/20 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[40%] -right-[10%] h-[400px] w-[400px] rounded-full bg-purple-500/10 blur-[100px] pointer-events-none" />
 
-      <article className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
-        <div className="flex flex-col items-center text-center mb-10">
+      <article className="relative z-10 w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-indigo-900/20 to-purple-900/20 p-8 shadow-2xl backdrop-blur-xl group">
+        <div className="absolute inset-0 bg-indigo-500/10 blur-3xl group-hover:bg-indigo-500/20 transition-all duration-700 pointer-events-none" />
+
+        <div className="relative z-10 flex flex-col items-center text-center mb-10">
           <div className="relative mb-6 group">
-            <div className="absolute inset-0 bg-brand-primary blur-[20px] opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full" />
-            <div className="relative bg-linear-to-br from-brand-primary to-indigo-600 p-4 rounded-2xl shadow-inner border border-white/10">
+            <div className="absolute inset-0 bg-indigo-500 blur-[20px] opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full" />
+            <div className="relative bg-linear-to-br from-indigo-500 to-purple-600 p-4 rounded-2xl shadow-inner border border-white/10">
               <KeyRound
                 className="w-8 h-8 text-white fill-white/20"
                 strokeWidth={1.5}
@@ -62,7 +64,7 @@ export default function ForgotPassword() {
         </div>
 
         {status === "success" ? (
-          <div className="text-center space-y-6 animate-in fade-in zoom-in duration-500">
+          <div className="relative z-10 text-center space-y-6 animate-in fade-in zoom-in duration-500">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-500/30">
               <Mail className="h-8 w-8 text-emerald-400" />
             </div>
@@ -80,7 +82,7 @@ export default function ForgotPassword() {
             </Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
             <div className="space-y-4">
               <Input
                 label="Email de recuperación"
@@ -93,6 +95,7 @@ export default function ForgotPassword() {
                 }}
                 leftIcon={<Mail className="w-4 h-4 text-slate-400" />}
                 disabled={status === "loading"}
+                className="bg-slate-950/30 border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/50"
                 error={status === "error" && !email ? " " : undefined}
               />
             </div>
@@ -116,7 +119,7 @@ export default function ForgotPassword() {
                 variant="primary"
                 type="submit"
                 loading={status}
-                className="w-full"
+                className="w-full h-12 rounded-xl font-medium transition-all shadow-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/20"
               >
                 Enviar instrucciones
               </Button>

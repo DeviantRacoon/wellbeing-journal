@@ -93,17 +93,19 @@ export default function Register() {
 
       {/* Background Orbs - Fixed to stay in place while scrolling */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[20%] -left-[10%] h-125 w-125 rounded-full bg-teal-500/20 blur-[120px]" />
-        <div className="absolute top-[40%] -right-[10%] h-100 w-100 rounded-full bg-emerald-500/10 blur-[100px]" />
+        <div className="absolute -top-[20%] -left-[10%] h-[500px] w-[500px] rounded-full bg-indigo-500/20 blur-[120px]" />
+        <div className="absolute top-[40%] -right-[10%] h-[400px] w-[400px] rounded-full bg-purple-500/10 blur-[100px]" />
       </div>
 
       {/* Content Wrapper - Allows centering but grows if content overflows */}
       <div className="relative z-10 flex min-h-full w-full items-center justify-center px-4 py-12">
-        <article className="w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl">
-          <div className="flex flex-col items-center text-center mb-10">
+        <article className="w-full max-w-md overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-900/20 to-purple-900/20 p-8 shadow-2xl backdrop-blur-xl group">
+          <div className="absolute inset-0 bg-indigo-500/10 blur-3xl group-hover:bg-indigo-500/20 transition-all duration-700 pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col items-center text-center mb-10">
             <div className="relative mb-6 group">
-              <div className="absolute inset-0 bg-teal-500 blur-[20px] opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full" />
-              <div className="relative bg-gradient-to-br from-teal-500 to-emerald-600 p-4 rounded-2xl shadow-inner border border-white/10">
+              <div className="absolute inset-0 bg-indigo-500 blur-[20px] opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full" />
+              <div className="relative bg-gradient-to-br from-indigo-500 to-purple-600 p-4 rounded-2xl shadow-inner border border-white/10">
                 <Brain
                   className="w-8 h-8 text-white fill-white/20"
                   strokeWidth={1.5}
@@ -112,14 +114,14 @@ export default function Register() {
             </div>
 
             <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl mb-3">
-              Crear <span className="text-teal-400">Cuenta</span>
+              Crear <span className="text-indigo-400">Cuenta</span>
             </h1>
             <p className="text-base text-slate-400">
               Únete a PaM y empieza tu camino al bienestar
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="relative z-10 space-y-5">
             <div className="space-y-2">
               <Input
                 label="Nombre Completo"
@@ -132,6 +134,7 @@ export default function Register() {
                 }}
                 leftIcon={<User className="w-4 h-4 text-slate-400" />}
                 disabled={status === "loading" || status === "success"}
+                className="bg-slate-950/30 border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/50"
                 error={status === "error" && !name ? " " : undefined}
               />
 
@@ -146,6 +149,7 @@ export default function Register() {
                 }}
                 leftIcon={<Mail className="w-4 h-4 text-slate-400" />}
                 disabled={status === "loading" || status === "success"}
+                className="bg-slate-950/30 border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/50"
                 error={status === "error" && !email ? " " : undefined}
               />
 
@@ -160,6 +164,7 @@ export default function Register() {
                 }}
                 leftIcon={<Calendar className="w-4 h-4 text-slate-400" />}
                 disabled={status === "loading" || status === "success"}
+                className="bg-slate-950/30 border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/50"
                 error={status === "error" && !birthDate ? " " : undefined}
               />
 
@@ -174,6 +179,7 @@ export default function Register() {
                 }}
                 leftIcon={<Lock className="w-4 h-4 text-slate-400" />}
                 disabled={status === "loading" || status === "success"}
+                className="bg-slate-950/30 border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/50"
                 error={status === "error" && !password ? " " : undefined}
               />
 
@@ -188,6 +194,7 @@ export default function Register() {
                 }}
                 leftIcon={<Lock className="w-4 h-4 text-slate-400" />}
                 disabled={status === "loading" || status === "success"}
+                className="bg-slate-950/30 border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/50"
                 error={status === "error" && !confirmPassword ? " " : undefined}
               />
             </div>
@@ -211,19 +218,19 @@ export default function Register() {
                 variant="primary"
                 type="submit"
                 loading={status}
-                className="w-full bg-teal-600 hover:bg-teal-700 active:bg-teal-800"
+                className="w-full h-12 rounded-xl font-medium transition-all shadow-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/20"
               >
                 Registrarse
               </Button>
             </div>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-white/5 text-center">
+          <div className="relative z-10 mt-8 pt-6 border-t border-white/5 text-center">
             <p className="text-sm text-slate-400">
               ¿Ya tienes una cuenta?{" "}
               <Link
                 href="/auth"
-                className="text-teal-400 hover:text-teal-300 font-medium transition-colors hover:underline"
+                className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors hover:underline"
               >
                 Inicia sesión
               </Link>
