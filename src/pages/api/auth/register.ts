@@ -1,20 +1,19 @@
+import { RequestHandler, customErrorHandler } from "@/commons/libs/controller";
 import { prisma } from "@/config/prisma";
 import bcrypt from "bcryptjs";
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
-  }
+export class RegisterController {
+  @RequestHandler
+  async handler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method !== "POST") {
+      customErrorHandler("Método no permitido", 405);
+    }
 
-  try {
     const { name, email, password, birthDate } = req.body;
 
     if (!email || !password || !name) {
-      return res.status(400).json({ message: "Missing required fields" });
+      customErrorHandler("Faltan campos requeridos", 400);
     }
 
     const existingUser = await prisma.user.findUnique({
@@ -22,7 +21,7 @@ export default async function handler(
     });
 
     if (existingUser) {
-      return res.status(409).json({ message: "User already exists" });
+      customErrorHandler("El usuario ya está registrado", 409);
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -32,16 +31,16 @@ export default async function handler(
         name,
         email,
         password: hashedPassword,
-        birthDate: birthDate ? new Date(birthDate) : new Date(), // Default to now if missing, validation should handle this
+        birthDate: birthDate ? new Date(birthDate) : new Date(),
       },
     });
 
-    return res.status(201).json({
-      message: "User created successfully",
+    return {
+      message: "Usuario creado exitosamente",
       user: { id: user.id, email: user.email, name: user.name },
-    });
-  } catch (error) {
-    console.error("Registration error:", error);
-    return res.status(500).json({ message: "Internal server error" });
+    };
   }
 }
+
+const controller = new RegisterController();
+export default controller.handler.bind(controller);

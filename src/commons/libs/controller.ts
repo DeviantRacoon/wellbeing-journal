@@ -2,10 +2,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export function customErrorHandler(
   message: string,
-  total?: number,
   statusCode: number = 400,
 ): never {
-  throw { message, total, statusCode };
+  throw { message, statusCode };
 }
 
 const nonResponseFields = ["password", "refreshTokenHash"];

@@ -56,8 +56,10 @@ export default function Register() {
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || "Error al registrarse");
+      if (!response.ok || !data.ok) {
+        throw new Error(
+          data.message || data.data?.message || "Error al registrarse",
+        );
       }
 
       // Auto login after registration
