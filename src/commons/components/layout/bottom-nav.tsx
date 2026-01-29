@@ -38,16 +38,17 @@ export function BottomNav() {
         </Link>
 
         {/* History */}
-        <Link
-          href="/journal/history"
-          className={cn(
-            "p-3 rounded-full transition-all duration-300",
-            isActive("/journal/history")
-              ? "bg-white text-black shadow-lg shadow-white/20"
-              : "text-white/60 hover:text-white hover:bg-white/5",
-          )}
-        >
-          <Book className="w-6 h-6" />
+        <Link href="/journal/history" id="nav-history">
+          <div
+            className={cn(
+              "p-2 rounded-xl transition-all duration-300",
+              pathname === "/journal/history"
+                ? "bg-indigo-500/20 text-indigo-100 shadow-[0_0_15px_-3px_rgba(99,102,241,0.4)]"
+                : "text-slate-400 hover:text-white hover:bg-white/5",
+            )}
+          >
+            <Book className="w-6 h-6" />
+          </div>
         </Link>
       </nav>
     </div>

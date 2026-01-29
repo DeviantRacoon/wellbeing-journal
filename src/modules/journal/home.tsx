@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Button } from "@/commons/components";
 
 import { BottomNav } from "@/commons/components/layout/bottom-nav";
-import { Avatar, AvatarFallback } from "@/commons/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +14,7 @@ import {
 } from "@/commons/components/ui/dropdown-menu";
 import { ArrowRight, Calendar, LogOut, Sparkles } from "lucide-react";
 
+import { DiagnosisProgress } from "./components/DiagnosisProgress";
 import Layout from "./components/layout";
 import useJournalHistory from "./history/useJournalHistory";
 
@@ -43,11 +43,9 @@ export default function Home() {
               variant="ghost"
               className="relative h-10 w-10 rounded-full p-0 hover:bg-transparent"
             >
-              <Avatar className="h-10 w-10 border-2 border-indigo-500/50 hover:border-indigo-400 transition-colors">
-                <AvatarFallback className="bg-slate-900 text-white font-bold text-xs">
-                  YO
-                </AvatarFallback>
-              </Avatar>
+              <div className="h-10 w-10 rounded-full bg-linear-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-xs font-bold ring-4 ring-slate-950 shadow-lg text-white">
+                YO
+              </div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -66,8 +64,16 @@ export default function Home() {
       </header>
 
       <main className="flex-1 px-6 space-y-8 relative z-10 max-w-xl mx-auto w-full">
+        {/* PROGRESS CARD */}
+        <div id="diagnosis-progress">
+          <DiagnosisProgress />
+        </div>
+
         {/* HERO CARD - NEW ENTRY */}
-        <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-900/20 to-purple-900/20 p-8 text-center shadow-2xl backdrop-blur-xl group">
+        <section
+          id="hero-new-entry"
+          className="relative overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-indigo-900/20 to-purple-900/20 p-8 text-center shadow-2xl backdrop-blur-xl group"
+        >
           <div className="absolute inset-0 bg-indigo-500/10 blur-3xl group-hover:bg-indigo-500/20 transition-all duration-700" />
 
           <div className="relative z-10 space-y-6">
@@ -111,7 +117,7 @@ export default function Home() {
 
           {lastEntry ? (
             <Link href="/journal/history">
-              <article className="rounded-2xl border border-white/5 bg-white/5 p-5 hover:bg-white/10 transition-colors cursor-pointer">
+              <article className="rounded-2xl border border-white/5 bg-white/5 p-5 hover:bg-white/10 transition-all cursor-pointer animate-in fade-in zoom-in delay-100 duration-500">
                 <div className="flex items-center gap-2 mb-3 text-xs text-white/40">
                   <Calendar className="w-3 h-3" />
                   <span className="capitalize">

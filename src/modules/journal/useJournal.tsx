@@ -44,7 +44,11 @@ export default function useJournal() {
     }
 
     setIsSheetOpen(false);
-    setTimeout(() => setStep("feedback"), 300);
+    setTimeout(() => {
+      setStep("feedback");
+      // Notify other components (like Dashboard) that data has changed
+      window.dispatchEvent(new Event("journal-update"));
+    }, 300);
   };
 
   const getFocusLabel = (val: number) => {

@@ -21,6 +21,12 @@ import {
 } from "./ui/sheet";
 import { Slider } from "./ui/slider";
 import { Table } from "./ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 export {
   Button,
@@ -40,6 +46,10 @@ export {
   SheetTrigger,
   Slider,
   Table,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
   useConfirmModal,
   useToast,
 };

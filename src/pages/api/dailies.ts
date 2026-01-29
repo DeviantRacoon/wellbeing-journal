@@ -63,7 +63,7 @@ class DailyController {
   }
 
   private async getAll(req: NextApiRequest, userId: number) {
-    const { page, limit, orderBy, ...where } = req.query;
+    const { page, limit, orderBy, _t, ...where } = req.query;
     const pageNumber = Number(page) || 1;
     const take = Number(limit) || 20;
     const skip = (pageNumber - 1) * take;

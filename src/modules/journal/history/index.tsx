@@ -21,6 +21,10 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
   useToast,
 } from "@/commons/components";
 
@@ -47,6 +51,13 @@ export default function JournalHistory() {
   const [diagnosisContent, setDiagnosisContent] =
     useState<DiagnosisResponse | null>(null);
   const [isDiagnosisOpen, setIsDiagnosisOpen] = useState(false);
+  const [status, setStatus] = useState<any>(null);
+
+  useEffect(() => {
+    api.get("analyze-wellbeing").then((res) => {
+      if (res.ok) setStatus(res.data);
+    });
+  }, [entries]); // Re-fetch when entries change
 
   /* --- STATE: Detail Sheet --- */
   const [isDetailOpen, setIsDetailOpen] = useState(false);
@@ -116,22 +127,58 @@ export default function JournalHistory() {
           </h1>
         </div>
 
-        <Button
-          variant="outline"
-          size="sm"
-          className="bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border-indigo-500/20 hover:border-indigo-500/30 gap-2"
-          onClick={handleGenerateDiagnosis}
-          disabled={isGeneratingDiagnosis}
-        >
-          {isGeneratingDiagnosis ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
-          ) : (
-            <Sparkles className="w-4 h-4" />
-          )}
-          <span className="hidden sm:inline">
-            {isGeneratingDiagnosis ? "Generando..." : "Diagnóstico Semanal"}
-          </span>
-        </Button>
+        <div className="flex items-center gap-2">
+          <TooltipProvider>
+            <Tooltip delayDuration={0}>
+              <TooltipTrigger asChild>
+                <span tabIndex={0}>
+                  {" "}
+                  {/* Span needed for disabled button to show tooltip */}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={cn(
+                      "bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border-indigo-500/20 hover:border-indigo-500/30 gap-2 disabled:opacity-50 disabled:cursor-not-allowed",
+                      !status?.canDiagnose && "opacity-50 grayscale",
+                    )}
+                    onClick={handleGenerateDiagnosis}
+                    disabled={
+                      isGeneratingDiagnosis ||
+                      (!status?.canDiagnose && !status?.hasDiagnosisThisWeek)
+                    }
+                  >
+                    {isGeneratingDiagnosis ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : status?.hasDiagnosisThisWeek ? (
+                      <CheckCircle2 className="w-4 h-4" />
+                    ) : (
+                      <Sparkles className="w-4 h-4" />
+                    )}
+                    <span className="hidden sm:inline">
+                      {isGeneratingDiagnosis
+                        ? "Generando..."
+                        : status?.hasDiagnosisThisWeek
+                          ? "Ver Diagnóstico"
+                          : "Diagnóstico Semanal"}
+                    </span>
+                  </Button>
+                </span>
+              </TooltipTrigger>
+              <TooltipContent
+                side="bottom"
+                className="max-w-[200px] text-center bg-slate-900 border-white/10 text-white"
+              >
+                {!status
+                  ? "Cargando estado..."
+                  : status.hasDiagnosisThisWeek
+                    ? "Ya tienes tu diagnóstico. Toca para verlo."
+                    : status.canDiagnose
+                      ? "¡Listo para generar!"
+                      : `Necesitas ${status.remaining} entradas más esta semana.`}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </header>
 
       {isLoading && entries.length === 0 && (

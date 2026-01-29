@@ -30,12 +30,31 @@ export class AnalyzeWellbeingController {
 
   @RequestHandler
   async handler(req: NextApiRequest, res: NextApiResponse) {
+    const userId = await this.getUserId(req, res);
+    const startDate = startOfWeek(new Date(), { weekStartsOn: 1 });
+
+    if (req.method === "GET") {
+      const [entriesCount, existingDiagnosis] = await Promise.all([
+        prisma.dailyEntry.count({
+          where: { userId, createdAt: { gte: startDate } },
+        }),
+        prisma.weeklyDiagnosis.findUnique({
+          where: { userId_weekStartDate: { userId, weekStartDate: startDate } },
+        }),
+      ]);
+
+      return {
+        count: entriesCount,
+        hasDiagnosisThisWeek: !!existingDiagnosis,
+        canDiagnose: entriesCount >= 5 && !existingDiagnosis,
+        remaining: Math.max(0, 5 - entriesCount),
+        weekStartDate: startDate,
+      };
+    }
+
     if (req.method !== "POST") {
       customErrorHandler("Method not allowed", 405);
     }
-
-    const userId = await this.getUserId(req, res);
-    const startDate = startOfWeek(new Date(), { weekStartsOn: 1 });
 
     const existing = await prisma.weeklyDiagnosis.findUnique({
       where: { userId_weekStartDate: { userId, weekStartDate: startDate } },

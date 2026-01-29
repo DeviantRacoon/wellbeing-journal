@@ -28,6 +28,7 @@ export default function useJournalHistory() {
           orderBy: "desc",
           page: currentPage,
           limit,
+          _t: Date.now(), // Prevent caching
         });
 
         // API response structure: { ok: boolean, data: IJournal[], total: number, message: string }
@@ -68,9 +69,28 @@ export default function useJournalHistory() {
     [page, hasMore, isLoading, entries.length],
   );
 
-  // Initial load
+  // Initial load & Event Listeners
   useEffect(() => {
     fetchEntries({ reset: true });
+
+    const handleUpdate = () => {
+      console.log("Journal update received, refreshing...");
+      fetchEntries({ reset: true });
+    };
+
+    const handleFocus = () => {
+      // Optional: Check if enough time has passed to avoid spamming
+      console.log("Window focused, checking for updates...");
+      fetchEntries({ reset: true });
+    };
+
+    window.addEventListener("journal-update", handleUpdate);
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("journal-update", handleUpdate);
+      window.removeEventListener("focus", handleFocus);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
